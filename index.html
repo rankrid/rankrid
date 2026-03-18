@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rankrid — Get Found on Google</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b10;
+  --bg2: #0d1117;
+  --bg3: #111820;
+  --blue: #3b82f6;
+  --blue-light: #60a5fa;
+  --white: #f1f5f9;
+  --white-dim: rgba(241,245,249,0.6);
+  --white-faint: rgba(241,245,249,0.06);
+  --border: rgba(255,255,255,0.06);
+  --border-blue: rgba(59,130,246,0.2);
+  --muted: #64748b;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Geist', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(59,130,246,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59,130,246,0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 64px;
+  background: rgba(8,11,16,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.logo {
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--white);
+  text-decoration: none;
+  letter-spacing: -0.3px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.logo-icon {
+  width: 28px; height: 28px;
+  background: var(--blue);
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+}
+nav ul { display: flex; align-items: center; gap: 32px; list-style: none; }
+nav ul a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+nav ul a:hover { color: var(--white); }
+.nav-cta {
+  background: var(--blue) !important;
+  color: white !important;
+  padding: 8px 18px !important;
+  border-radius: 7px !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+}
+.nav-cta:hover { opacity: 0.85; }
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 140px 48px 80px;
+  z-index: 1;
+  overflow: hidden;
+}
+.hero-glow {
+  position: absolute;
+  top: 15%; left: 50%;
+  transform: translateX(-50%);
+  width: 700px; height: 500px;
+  background: radial-gradient(ellipse, rgba(59,130,246,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border-blue);
+  background: rgba(59,130,246,0.06);
+  color: var(--blue-light);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 14px;
+  border-radius: 100px;
+  margin-bottom: 36px;
+  animation: fadeDown 0.6s ease both;
+}
+.badge-dot {
+  width: 5px; height: 5px;
+  background: var(--blue);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity:1; box-shadow: 0 0 0 0 rgba(59,130,246,0.4); }
+  50% { opacity:0.7; box-shadow: 0 0 0 4px rgba(59,130,246,0); }
+}
+.hero h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(48px, 7vw, 88px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  margin-bottom: 24px;
+  max-width: 820px;
+  animation: fadeDown 0.6s 0.1s ease both;
+}
+.hero h1 em {
+  font-style: italic;
+  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #60a5fa 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+  letter-spacing: -3px;
+  font-size: 1.05em;
+}
+@keyframes shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+.hero p {
+  font-size: 17px;
+  color: var(--white-dim);
+  max-width: 480px;
+  margin-bottom: 40px;
+  font-weight: 300;
+  line-height: 1.7;
+  animation: fadeDown 0.6s 0.2s ease both;
+}
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  animation: fadeDown 0.6s 0.3s ease both;
+}
+.btn-primary {
+  background: var(--blue);
+  color: white;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+.btn-primary:hover {
+  background: var(--blue-light);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 30px rgba(59,130,246,0.3);
+}
+.btn-ghost {
+  color: var(--white-dim);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.2s;
+  border: 1px solid var(--border);
+  background: var(--white-faint);
+}
+.btn-ghost:hover { color: var(--white); border-color: rgba(255,255,255,0.12); }
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.stats-bar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+}
+.stat-item {
+  flex: 1;
+  max-width: 240px;
+  padding: 28px 32px;
+  border-right: 1px solid var(--border);
+  text-align: center;
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 36px;
+  font-weight: 400;
+  color: var(--white);
+  letter-spacing: -1px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-num span { color: var(--blue-light); }
+.stat-label { font-size: 12px; color: var(--muted); }
+section { position: relative; z-index: 1; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 16px;
+}
+.section-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--blue); }
+.section-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(30px, 4vw, 48px);
+  font-weight: 400;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.section-sub {
+  font-size: 15px;
+  color: var(--white-dim);
+  font-weight: 300;
+  max-width: 480px;
+  line-height: 1.7;
+}
+.services-section { padding: 100px 0; }
+.services-header { margin-bottom: 56px; }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.service-card {
+  background: var(--bg2);
+  padding: 36px 32px;
+  transition: background 0.25s;
+  position: relative;
+}
+.service-card:hover { background: var(--bg3); }
+.service-card:hover .service-arrow { opacity: 1; transform: translate(2px, -2px); }
+.service-num { font-size: 11px; color: var(--muted); font-weight: 500; letter-spacing: 0.08em; margin-bottom: 20px; }
+.service-icon {
+  width: 40px; height: 40px;
+  border: 1px solid var(--border-blue);
+  border-radius: 10px;
+  background: rgba(59,130,246,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+.service-card h3 { font-size: 16px; font-weight: 500; margin-bottom: 10px; letter-spacing: -0.2px; }
+.service-card p { font-size: 13px; color: var(--muted); line-height: 1.7; font-weight: 300; margin-bottom: 20px; }
+.service-price { font-size: 12px; color: var(--blue-light); font-weight: 500; border-top: 1px solid var(--border); padding-top: 16px; }
+.service-arrow { position: absolute; top: 32px; right: 32px; color: var(--blue-light); font-size: 16px; opacity: 0; transition: all 0.2s; }
+.how-section {
+  padding: 100px 0;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.how-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; margin-top: 56px; }
+.step { position: relative; }
+.step-line {
+  position: absolute;
+  top: 16px; right: -20px;
+  width: 40px; height: 1px;
+  background: linear-gradient(90deg, var(--border-blue), transparent);
+}
+.step:last-child .step-line { display: none; }
+.step-num {
+  width: 32px; height: 32px;
+  border: 1px solid var(--border-blue);
+  border-radius: 8px;
+  background: rgba(59,130,246,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--blue-light);
+  margin-bottom: 20px;
+}
+.step h3 { font-size: 15px; font-weight: 500; margin-bottom: 8px; letter-spacing: -0.2px; }
+.step p { font-size: 13px; color: var(--muted); line-height: 1.7; font-weight: 300; }
+.niches-section { padding: 100px 0; }
+.niches-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 56px; }
+.niche-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg2);
+  transition: all 0.25s;
+}
+.niche-card:hover { border-color: var(--border-blue); background: rgba(59,130,246,0.04); transform: translateY(-2px); }
+.niche-emoji {
+  width: 40px; height: 40px;
+  background: var(--white-faint);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.niche-card h4 { font-size: 14px; font-weight: 500; margin-bottom: 2px; letter-spacing: -0.1px; }
+.niche-card p { font-size: 12px; color: var(--muted); font-weight: 300; }
+.pricing-section {
+  padding: 100px 0;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 56px; }
+.pricing-card {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 36px 28px;
+  background: var(--bg);
+  position: relative;
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s, background 0.25s;
+  cursor: pointer;
+}
+.pricing-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--border-blue);
+  background: linear-gradient(135deg, rgba(59,130,246,0.05), var(--bg));
+  box-shadow: 0 0 40px rgba(59,130,246,0.1), 0 20px 40px rgba(0,0,0,0.3);
+}
+.pricing-card:hover .btn-plan {
+  border-color: var(--blue);
+  color: var(--white);
+}
+.pricing-card:hover .price-amount {
+  background: linear-gradient(135deg, #60a5fa, #a78bfa);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.pricing-card.featured {
+  border-color: var(--border-blue);
+  background: linear-gradient(135deg, rgba(59,130,246,0.06), var(--bg));
+  box-shadow: 0 0 40px rgba(59,130,246,0.08);
+}
+.pricing-card.featured:hover {
+  box-shadow: 0 0 60px rgba(59,130,246,0.18), 0 20px 40px rgba(0,0,0,0.3);
+  border-color: var(--blue-light);
+}
+.featured-label {
+  position: absolute;
+  top: -10px; left: 24px;
+  background: var(--blue);
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 12px;
+  border-radius: 100px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background 0.25s;
+}
+.pricing-card.featured:hover .featured-label {
+  background: var(--blue-light);
+}
+.pricing-card h3 { font-size: 12px; font-weight: 500; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
+.price-amount { font-family: 'Instrument Serif', serif; font-size: 44px; font-weight: 400; letter-spacing: -2px; line-height: 1; margin-bottom: 4px; }
+.price-period { font-size: 12px; color: var(--muted); margin-bottom: 28px; font-weight: 300; }
+.pricing-divider { height: 1px; background: var(--border); margin-bottom: 24px; }
+.pricing-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+.pricing-features li { font-size: 13px; color: var(--white-dim); display: flex; align-items: flex-start; gap: 10px; font-weight: 300; line-height: 1.5; }
+.check { color: var(--blue-light); font-size: 12px; margin-top: 1px; flex-shrink: 0; }
+.btn-plan {
+  display: block;
+  text-align: center;
+  padding: 11px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s;
+  border: 1px solid var(--border);
+  color: var(--white-dim);
+}
+.btn-plan:hover { color: var(--white); background: var(--white-faint); }
+.pricing-card.featured .btn-plan { background: var(--blue); border-color: var(--blue); color: white; }
+.pricing-card.featured .btn-plan:hover { background: var(--blue-light); border-color: var(--blue-light); }
+.reviews-section { padding: 100px 0; }
+.reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 56px; }
+.review-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+  transition: border-color 0.2s;
+}
+.review-card:hover { border-color: var(--border-blue); }
+.review-stars { color: #fbbf24; font-size: 13px; letter-spacing: 1px; margin-bottom: 14px; }
+.review-text { font-size: 14px; color: var(--white-dim); line-height: 1.7; font-weight: 300; margin-bottom: 20px; font-style: italic; }
+.review-author { display: flex; align-items: center; gap: 10px; }
+.review-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  flex-shrink: 0;
+}
+.review-name { font-size: 13px; font-weight: 500; color: var(--white); }
+.review-biz { font-size: 11px; color: var(--muted); }
+.cta-section {
+  padding: 120px 48px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+}
+.cta-glow {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px; height: 300px;
+  background: radial-gradient(ellipse, rgba(59,130,246,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-section h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 400;
+  letter-spacing: -2px;
+  line-height: 1.05;
+  margin-bottom: 16px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cta-section h2 em { font-style: italic; color: var(--blue-light); }
+.cta-section > p { font-size: 15px; color: var(--white-dim); margin-bottom: 36px; font-weight: 300; }
+.cta-note { font-size: 12px; color: var(--muted); margin-top: 16px; }
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.footer-logo { font-size: 15px; font-weight: 600; letter-spacing: -0.3px; }
+footer p { font-size: 12px; color: var(--muted); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 12px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--white); }
+.fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  nav ul li:not(:last-child) { display: none; }
+  .hero, .cta-section { padding: 120px 24px 60px; }
+  .container { padding: 0 24px; }
+  .stats-bar { flex-wrap: wrap; }
+  .stat-item { min-width: 50%; border-bottom: 1px solid var(--border); }
+  .services-grid, .niches-grid, .pricing-grid, .reviews-grid { grid-template-columns: 1fr; }
+  .how-grid { grid-template-columns: 1fr 1fr; }
+  footer { padding: 24px; flex-direction: column; gap: 16px; text-align: center; }
+  .footer-links { justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="rankrid.html" class="logo">
+    <div class="logo-icon">R</div>
+    Rankrid
+  </a>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#how">Process</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="contact.html" class="nav-cta">Free audit →</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-badge">
+    <span class="badge-dot"></span>
+    Local SEO for Indian businesses
+  </div>
+  <h1>Your business deserves<br>to be <em>found on Google.</em></h1>
+  <p>We help clinics, restaurants, cafes, salons and local businesses all across India rank higher on Google Maps and turn searches into real customers.</p>
+  <div class="hero-actions">
+    <a href="contact.html" class="btn-primary">Get a free audit →</a>
+    <a href="#services" class="btn-ghost">See our services</a>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">5<span>x</span></div>
+    <div class="stat-label">More Google Maps visibility</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">48<span>hr</span></div>
+    <div class="stat-label">Setup turnaround time</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">₹3,500</div>
+    <div class="stat-label">Starting price</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">100<span>%</span></div>
+    <div class="stat-label">Results-focused approach</div>
+  </div>
+</div>
+
+<section class="services-section" id="services">
+  <div class="container">
+    <div class="services-header">
+      <p class="section-eyebrow">What we do</p>
+      <h2 class="section-title">Everything your business needs<br>to get found online.</h2>
+      <p class="section-sub">From Google listing setup to full SEO management — we handle it all so you can focus on running your business.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <div class="service-num">01</div>
+        <div class="service-icon">📍</div>
+        <h3>Google Business Setup</h3>
+        <p>We set up and fully optimise your Google Business Profile so customers can find you the moment they search nearby.</p>
+        <p class="service-price">One-time ₹3,500</p>
+        <span class="service-arrow">↗</span>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-num">02</div>
+        <div class="service-icon">📈</div>
+        <h3>Local SEO Management</h3>
+        <p>Ongoing monthly SEO to keep pushing your Google Maps ranking higher — more visibility, more customers every month.</p>
+        <p class="service-price">From ₹5,000/month</p>
+        <span class="service-arrow">↗</span>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-num">03</div>
+        <div class="service-icon">🌐</div>
+        <h3>Website Design</h3>
+        <p>Clean, fast, mobile-first websites that look professional and turn visitors into paying customers.</p>
+        <p class="service-price">From ₹8,000 one-time</p>
+        <span class="service-arrow">↗</span>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-num">04</div>
+        <div class="service-icon">⭐</div>
+        <h3>Review Management</h3>
+        <p>We build your review strategy — getting you more 5-star reviews and handling negative ones professionally.</p>
+        <p class="service-price">Included in Growth plan</p>
+        <span class="service-arrow">↗</span>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-num">05</div>
+        <div class="service-icon">📊</div>
+        <h3>Monthly Reports</h3>
+        <p>Clear, jargon-free reports showing how many people found you, called you and visited from Google each month.</p>
+        <p class="service-price">Included in all plans</p>
+        <span class="service-arrow">↗</span>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-num">06</div>
+        <div class="service-icon">💬</div>
+        <h3>WhatsApp Business</h3>
+        <p>We set up your WhatsApp Business profile so customers can reach you instantly from your Google listing.</p>
+        <p class="service-price">Included in Pro plan</p>
+        <span class="service-arrow">↗</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how-section" id="how">
+  <div class="container">
+    <p class="section-eyebrow">The process</p>
+    <h2 class="section-title">Simple. Fast. Results you can see.</h2>
+    <div class="how-grid">
+      <div class="step fade-up">
+        <div class="step-line"></div>
+        <div class="step-num">01</div>
+        <h3>Free Audit</h3>
+        <p>We analyse your current Google presence and show you exactly what's missing and costing you customers.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-line"></div>
+        <div class="step-num">02</div>
+        <h3>Setup & Optimise</h3>
+        <p>We set up your Google Business Profile, website and SEO foundation within 48 hours of signing up.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-line"></div>
+        <div class="step-num">03</div>
+        <h3>Rank & Grow</h3>
+        <p>Every month we push your ranking higher on Google Maps and bring more local customers to your door.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">04</div>
+        <h3>Report & Refine</h3>
+        <p>Monthly reports so you always know exactly how many people found your business through Google.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="niches-section" id="niches">
+  <div class="container">
+    <p class="section-eyebrow">Who we help</p>
+    <h2 class="section-title">Built for local businesses<br>all across India.</h2>
+    <div class="niches-grid">
+      <div class="niche-card fade-up">
+        <div class="niche-emoji">🏥</div>
+        <div><h4>Doctors & Clinics</h4><p>Get found when patients search "doctor near me"</p></div>
+      </div>
+      <div class="niche-card fade-up">
+        <div class="niche-emoji">🍽️</div>
+        <div><h4>Restaurants & Cafes</h4><p>Rank higher on Google Maps & search results</p></div>
+      </div>
+      <div class="niche-card fade-up">
+        <div class="niche-emoji">💆</div>
+        <div><h4>Salons & Spas</h4><p>More walk-ins from local Google searches daily</p></div>
+      </div>
+      <div class="niche-card fade-up">
+        <div class="niche-emoji">🏋️</div>
+        <div><h4>Gyms & Fitness</h4><p>Show up for "gym near me" searches every day</p></div>
+      </div>
+      <div class="niche-card fade-up">
+        <div class="niche-emoji">⚖️</div>
+        <div><h4>Lawyers & CAs</h4><p>Get high-intent clients searching for legal help</p></div>
+      </div>
+      <div class="niche-card fade-up">
+        <div class="niche-emoji">🏠</div>
+        <div><h4>Real Estate Agents</h4><p>Stand out in local property searches across India</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing-section" id="pricing">
+  <div class="container">
+    <p class="section-eyebrow">Pricing</p>
+    <h2 class="section-title">Simple, transparent pricing.<br>No surprises.</h2>
+    <div class="pricing-grid">
+      <div class="pricing-card fade-up">
+        <h3>Starter</h3>
+        <div class="price-amount">₹3,500</div>
+        <p class="price-period">one-time setup fee</p>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span>Google Business Profile setup</li>
+          <li><span class="check">✓</span>Full profile optimisation</li>
+          <li><span class="check">✓</span>10 keyword targeting</li>
+          <li><span class="check">✓</span>10 photos uploaded</li>
+          <li><span class="check">✓</span>One-time audit report</li>
+        </ul>
+        <a href="contact.html" class="btn-plan">Get started</a>
+      </div>
+      <div class="pricing-card featured fade-up">
+        <span class="featured-label">Most popular</span>
+        <h3>Growth</h3>
+        <div class="price-amount">₹5,000</div>
+        <p class="price-period">per month</p>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span>Everything in Starter</li>
+          <li><span class="check">✓</span>Monthly local SEO work</li>
+          <li><span class="check">✓</span>Weekly Google Posts</li>
+          <li><span class="check">✓</span>Review management</li>
+          <li><span class="check">✓</span>Monthly performance report</li>
+          <li><span class="check">✓</span>WhatsApp support</li>
+        </ul>
+        <a href="contact.html" class="btn-plan">Get started</a>
+      </div>
+      <div class="pricing-card fade-up">
+        <h3>Pro</h3>
+        <div class="price-amount">₹12,000</div>
+        <p class="price-period">per month</p>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span>Everything in Growth</li>
+          <li><span class="check">✓</span>5-page website included</li>
+          <li><span class="check">✓</span>Full on-page SEO</li>
+          <li><span class="check">✓</span>WhatsApp Business setup</li>
+          <li><span class="check">✓</span>Bi-weekly check-in calls</li>
+          <li><span class="check">✓</span>Priority support</li>
+        </ul>
+        <a href="contact.html" class="btn-plan">Get started</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews-section" id="reviews">
+  <div class="container">
+    <p class="section-eyebrow">Client reviews</p>
+    <h2 class="section-title">Businesses that trust Rankrid.</h2>
+    <div class="reviews-grid">
+      <div class="review-card fade-up">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Within 3 weeks my clinic started showing up on the first page of Google Maps. I'm now getting 15-20 new patient inquiries every week."</p>
+        <div class="review-author">
+          <div class="review-avatar">DR</div>
+          <div>
+            <div class="review-name">Dr. Rajesh Mehta</div>
+            <div class="review-biz">Mehta Skin Clinic, Bangalore</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card fade-up">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Our restaurant was invisible on Google before Rankrid. Now we're in the top 3 for 'best restaurant in Koramangala'. Footfall is up 40%."</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:#059669;">AK</div>
+          <div>
+            <div class="review-name">Amir Khan</div>
+            <div class="review-biz">Spice Route Restaurant, Bangalore</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card fade-up">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Best investment for my salon. They set everything up in 48 hours and the monthly reports are super clear. Walk-ins have doubled."</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:#7c3aed;">PS</div>
+          <div>
+            <div class="review-name">Priya Sharma</div>
+            <div class="review-biz">Glow Studio, Hyderabad</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card fade-up">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"My gym now ranks #1 on Google Maps for 'gym near me' in my area. I was skeptical at first but the results speak for themselves."</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:#dc2626;">VR</div>
+          <div>
+            <div class="review-name">Vikram Rao</div>
+            <div class="review-biz">Iron Fort Gym, Chennai</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card fade-up">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"As a CA firm we never thought about Google presence. Rankrid changed that — we're getting 8-10 new client inquiries a month purely from Google."</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:#0891b2;">SJ</div>
+          <div>
+            <div class="review-name">Suresh Joshi</div>
+            <div class="review-biz">Joshi & Associates CA, Pune</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card fade-up">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"The website they built looks so professional. Multiple clients chose us specifically because our site looked trustworthy. Great ROI."</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:#ea580c;">NP</div>
+          <div>
+            <div class="review-name">Neha Patel</div>
+            <div class="review-biz">Patel Properties, Ahmedabad</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="contact">
+  <div class="cta-glow"></div>
+  <p class="section-eyebrow" style="justify-content:center;">Get started today</p>
+  <h2>Ready to show up<br>on <em>Google?</em></h2>
+  <p>We'll audit your current Google presence for free.<br>No commitment. No jargon. Just honest advice.</p>
+  <a href="contact.html" class="btn-primary" style="font-size:15px; padding:14px 36px;">Get your free audit →</a>
+  <p class="cta-note">Fill in a quick form — we reply within 2 hours.</p>
+</section>
+
+<footer>
+  <div class="footer-logo">Rankrid</div>
+  <p>© 2025 Rankrid · All across India</p>
+  <div class="footer-links">
+    <a href="#services">Services</a>
+    <a href="#pricing">Pricing</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
